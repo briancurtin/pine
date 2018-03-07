@@ -24,7 +24,7 @@ if __name__ == "__main__":
         description="A benchmark utility to make requests to a REST API.",
         license="Apache 2",
         url="https://google.com",
-        version="0.1",
+        version="0.2.dev0",
         author=NAME,
         author_email=EMAIL,
         maintainer=NAME,
