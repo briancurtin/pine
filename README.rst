@@ -10,6 +10,20 @@ on every change to your codebase so you can identify changes early.
 Pine isn't a load testing tool. If you're trying to solve C10K, this won't
 help you. Pine (currently) runs requests serially.
 
+Installation
+============
+
+Under normal circumstances, you would just do ``pip install pine``.
+
+However, until pyyaml supports Python 3.7 in a released version, you need
+one additional step. You can do this before or after ``pip install pine``,
+it just won't work until you've done this yourself.::
+
+    pip install -e git+https://github.com/yaml/pyyaml.git#egg=pyyaml
+
+https://github.com/briancurtin/pine/issues/1 and
+https://github.com/yaml/pyyaml/issues/126 are tracking this issue.
+
 Usage
 =====
 
