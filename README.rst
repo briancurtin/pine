@@ -53,3 +53,8 @@ Requirements
 ============
 
 Pine uses aiohttp on Python 3.7.
+
+Thanks
+======
+
+Thanks to Francis Horsman for the ``pine`` package name.
