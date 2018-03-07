@@ -1,0 +1,5 @@
+aiohttp>=3.0
+certifi>=2018.1.18
+# pyyaml>=3.12 # No released version works with 3.7 yet.
+# See https://github.com/yaml/pyyaml/issues/126
+-e git+https://github.com/yaml/pyyaml.git#egg=pyyaml

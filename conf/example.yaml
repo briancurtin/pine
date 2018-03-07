@@ -1,0 +1,17 @@
+default:
+    root: "https://app.com/api"
+    version: "1.0"
+    warmup: 1
+    iterations: 20
+
+get_all_things:
+    description: "Get all of the things"
+    url: "/thing"
+    method: "get"
+    headers: {"X-Auth-Token": "{X_AUTH_TOKEN}"}
+
+get_one_thing:
+    description: "Get one thing"
+    url: "/thing/1"
+    method: "get"
+    headers: {"X-Auth-Token": "{X_AUTH_TOKEN}"}
