@@ -24,7 +24,7 @@ if __name__ == "__main__":
         description="A benchmark utility to make requests to a REST API.",
         license="Apache 2",
         url="https://google.com",
-        version="0.2.dev0",
+        version="0.2",
         author=NAME,
         author_email=EMAIL,
         maintainer=NAME,
@@ -33,11 +33,15 @@ if __name__ == "__main__":
         long_description=open(
             os.path.join(os.path.abspath(os.path.dirname(__file__)),
                          "README.rst")).read(),
-        scripts=["source/pine.py"],
+        scripts=["source/pine"],
         zip_safe=False,
         classifiers=CLASSIFIERS,
         install_requires=[
             "aiohttp>=3.0",
             "certifi>=2018.1.18",
+            "pyyaml>3.12"
             ],
+        dependency_links=[
+            "git+https://github.com/yaml/pyyaml.git#egg=pyyaml-3.13"
+            ]
     )
