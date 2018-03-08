@@ -191,6 +191,17 @@ and ``id``. The ``id`` is whatever you specified in the ``-i`` argument to
 of tests. ``results`` contains a list of dictionaries with details
 on each individual test, as follows.
 
+::
+
+    {"results": [
+        {"timeouts": 0, "failures": [], "name": "get_all_things",
+         "description": "Get all of the things", "version": "1.0",
+         "mean": 1.668359371049998,
+         "median": 1.580882219500005,
+         "stdev": 0.0969358463985873},
+     ],
+     "id": "7155eb"}
+
 .. note:: ``pine`` does not determine success or failure of any test,
            though it does separate timeouts and responses other than
            ``200 OK`` and only calculates statistics on responses that
