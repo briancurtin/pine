@@ -1,0 +1,4 @@
+codecov>=2.0
+coverage>=4.5
+flake8>=3.5
+--pre tox>=3.0
