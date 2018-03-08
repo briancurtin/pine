@@ -10,6 +10,11 @@ on every change to your codebase so you can identify changes early.
 Pine isn't a load testing tool. If you're trying to solve C10K, this won't
 help you. Pine (currently) runs requests serially.
 
+Documentation
+=============
+
+Documentation is available at http://pine.readthedocs.io/en/latest/
+
 Installation
 ============
 

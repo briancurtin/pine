@@ -23,7 +23,7 @@ if __name__ == "__main__":
         name="pine",
         description="A benchmark utility to make requests to a REST API.",
         license="Apache 2",
-        url="https://google.com",
+        url="http://pine.readthedocs.io/en/latest/",
         version="0.3.dev0",
         author=NAME,
         author_email=EMAIL,
