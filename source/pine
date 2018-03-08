@@ -130,11 +130,13 @@ def get_args():
         default=datetime.strftime(datetime.now(), "%Y%m%d%H%M%S%f"),
         help="The run ID, likely a branch checksum")
 
-    values = parser.parse_args()
+    parser.add_argument("test_names", nargs=argparse.REMAINDER,
+                        help="The names of any specific tests to be run")
 
-    return values.config_path, values.output_path, values.run_id
+    return parser.parse_args()
 
-def get_tests(path):
+
+def get_tests(path, test_names):
     with open(path, "r") as config_file:
         config = yaml.load(config_file.read())
 
@@ -149,6 +151,8 @@ def get_tests(path):
 
     tests = []
     for test_name, values in config.items():
+        if test_name not in test_names:
+            continue
         # If there's a configured root url, join it up, otherwise
         # we'll assume the url is fully formed.
         if root is not None:
@@ -200,13 +204,13 @@ def write_output(results, output_path, run_id):
 
 
 def main():
-    config_path, output_path, run_id = get_args()
+    args = get_args()
 
     loop = asyncio.get_event_loop()
 
-    tests = get_tests(config_path)
+    tests = get_tests(args.config_path, args.test_names)
     results = run_tests(loop, tests)
-    write_output(results, output_path, run_id)
+    write_output(results, args.output_path, args.run_id)
 
     loop.close()
 

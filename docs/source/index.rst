@@ -22,7 +22,8 @@ end up with a ``pine`` executable which you can run.
 Usage
 *****
 
-``pine`` takes three arguments, one of which is required.
+``pine`` takes three named arguments, one of which is required. It also
+takes the names of specific tests to run. See `names`_ for details.
 
 -c
 ^^
@@ -62,6 +63,14 @@ identifier for your test results.
 ``pine -c tests.yaml -o results.json -i 47d8b22`` will make pine run all of
 the tests in tests.yaml and then write them to results.json with the id
 47d8b22.
+
+names
+^^^^^
+
+``pine`` supports running only certain tests of a configuration if you
+specify the names of tests on the command line. For example, running
+``pine -c tests.yaml create_thing delete_thing`` will run only the
+create_thing and delete_thing tests from within tests.yaml.
 
 -h
 ^^
