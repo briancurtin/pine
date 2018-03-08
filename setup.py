@@ -18,17 +18,13 @@ CLASSIFIERS = [
     "Topic :: Software Development :: Libraries :: Python Modules",
 ]
 
-# We shouldn't have to do this, but dependency_links, current PyYAML,
-# and just generally distributing code in Python are all broken.
-subprocess.run(["pip", "install", "git+https://github.com/yaml/pyyaml.git"])
-
 if __name__ == "__main__":
     setup(
         name="pine",
         description="A benchmark utility to make requests to a REST API.",
         license="Apache 2",
         url="http://pine.readthedocs.io/en/latest/",
-        version="0.4",
+        version="0.5",
         author=NAME,
         author_email=EMAIL,
         maintainer=NAME,
@@ -43,5 +39,8 @@ if __name__ == "__main__":
         install_requires=[
             "aiohttp>=3.0",
             "certifi>=2018.1.18",
+            # Until PyYAML comes out with 3.13 it needs to be installed
+            # separately:
+            # pip install git+https://github.com/yaml/pyyaml.git
             ],
     )

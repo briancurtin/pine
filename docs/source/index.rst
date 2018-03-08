@@ -8,10 +8,10 @@ Installation
 
 Under normal circumstances you would just do ``pip install pine``.
 
-However, until PyYAML supports Python 3.7 in a released version, ``pip``
-needs one extra argument so we can install PyYAML from GitHub::
+However, until PyYAML supports Python 3.7 in a released version, one
+extra step is required so we can install PyYAML from GitHub::
 
-    pip install --process-dependency-links pine
+    pip install git+https://github.com/yaml/pyyaml.git
 
 This will install the ``pine`` script for you to use. If you're installing
 this inside a virtualenv, it'll be in the ``/bin`` folder of that virtualenv.
