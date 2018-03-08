@@ -39,8 +39,10 @@ for ``pine`` to run. See `Configuration`_ for details on this file.
 By default, ``pine`` writes the test results in JSON format to standard
 output, aka stdout, aka it prints them to the screen. If you'd like these
 results written to a file, the ``-o`` (or ``--output``) argument takes a
-file name to create. Note that it will overwrite any prior contents of that
-file.
+file name to create. You can also specify a directory for the output file
+to be written to and ``pine`` will generate a file in that directory using
+the run id it knows about from `-i`_. Note that in either case it will
+overwrite any prior contents of that file.
 
 ``pine -c tests.yaml -o results.json`` will make pine run all of the tests
 in tests.yaml and then write them to results.json.

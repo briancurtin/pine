@@ -116,10 +116,15 @@ def get_args():
     parser.add_argument("-c", "--config", dest="config_path",
                         help="Path to the configuraton file",
                         required=True)
-    parser.add_argument("-o", "--output", dest="output_path",
-                        # Technically the default here is None,
-                        # but we later interpret None to be sys.stdout
-                        help="Path to the output file (default: sys.stdout)")
+    parser.add_argument(
+        "-o", "--output", dest="output_path",
+        # Technically the default here is None, but we later interpret
+        # None to be sys.stdout
+        help=("Path to write the output file (default: sys.stdout). "
+              "If this is a directory, the `-i` run id  will be "
+              "the name of the file in that directory (with a '.json' "
+              "suffix). If this is a complete file path, the file "
+              "will be written there."))
     parser.add_argument(
         "-i", "--id", dest="run_id",
         default=datetime.strftime(datetime.now(), "%Y%m%d%H%M%S%f"),
@@ -186,6 +191,10 @@ def write_output(results, output_path, run_id):
     if output_path is None:
         sys.stdout.write(output)
     else:
+        # If we're given a directory, use the run_id to create the name.
+        if os.path.isdir(output_path):
+            output_path = os.path.join(output_path, run_id + ".json")
+
         with open(output_path, "w") as out:
             out.write(output)
 
