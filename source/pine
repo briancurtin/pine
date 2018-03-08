@@ -33,7 +33,7 @@ class Test:
     url: str
     status: int = field(default=200)
     method: str = field(default="get")
-    headers: dict = field(default=dict)
+    headers: dict = field(default=None)
     json: dict = field(default=None)
     warmup: int = field(default=0)
     iterations: int = field(default=3)
