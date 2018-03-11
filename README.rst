@@ -55,16 +55,18 @@ in ``-o``. It looks like the following::
 
     {"results": [
         {"timeouts": 0, "failures": [], "name": "get_all_things",
-         "description": "Get all of the things", "version": "1.0",
+         "description": "Get all of the things",
          "mean": 1.668359371049998,
          "median": 1.580882219500005,
          "stdev": 0.0969358463985873},
         {"timeouts": 0, "failures": [], "name": "get_one_thing",
-         "description": "Get one thing", "version": "1.0",
+         "description": "Get one thing",
          "mean": 0.856881387399993,
          "median": 0.508042131499991,
          "stdev": 0.0646515285845596},
      ],
+     "name": "Testing the things",
+     "version": "1.0",
      "id": "7155eb"}
 
 Requirements
