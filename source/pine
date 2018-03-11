@@ -149,10 +149,13 @@ def get_tests(path, test_names):
         default = {}
         root = None
 
+    check_test_name = True if test_names else False
+
     tests = []
     for test_name, values in config.items():
-        if test_name not in test_names:
+        if check_test_name and test_name not in test_names:
             continue
+
         # If there's a configured root url, join it up, otherwise
         # we'll assume the url is fully formed.
         if root is not None:
