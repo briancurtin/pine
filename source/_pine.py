@@ -45,7 +45,7 @@ class Test(Defaults):
     method: str = field(default="get")
     headers: dict = field(default=None)
     json: dict = field(default=None)
-    timeout: int = field(default=5*60) # This is the aiohttp default anyway.
+    timeout: int = field(default=5*60)  # This is the aiohttp default.
 
 
 @dataclass
@@ -116,7 +116,6 @@ async def run_one_test(loop, test):
         result.stdev = 0
 
     return result
-
 
 
 def run_tests(loop, tests):
