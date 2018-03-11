@@ -56,7 +56,7 @@ By default, it writes a timestamp in the form ``%Y%m%d%H%M%S%f``, which comes
 out like ``20180308094325628253``. However, you may wish to identify test
 runs with a value that makes sense with what you're testing.
 
-For example, if you're running pine as part of a continuous delivery pipeline,
+For example, if you're running pine as part of a continuous delivery pipeline
 you will be running tests against a certain commit hash, which is a good
 identifier for your test results.
 
@@ -85,20 +85,45 @@ Configuration
 ``default`` section for some configuration-wide values, and then arbitrarily
 named sections for individual tests. For example::
 
-    default:
-        root: "https://app.com/api"
+    details:
+        name: "my api tests"
         version: "1.0"
+    defaults:
+        root: "https://app.com/api"
         warmup: 1
         iterations: 20
-
     get_all_things:
         description: "Get all of the things"
         url: "/thing"
         method: "get"
         headers: {"X-Auth-Token": "{X_AUTH_TOKEN}"}
 
-default
+details
 ^^^^^^^
+
+The following details are used when creating the test's results, used for
+identifying this run's results as compared to others.
+
+name
+++++
+
+The name of this suite of tests, which shows up in the results output.
+
+The default value is the name of your configuration file, without any path
+or extension. For example, if you passed ``-c /etc/pine/things.yaml`` on
+the command line and did not specify ``name`` in the ``details`` section,
+``name`` would become ``things``.
+
+version
++++++++
+
+When looking back on test results, it can be useful to know what version
+of the test you were actually looking at. By versioning your config file
+you can identify when things changed, perhaps helping you figure out why
+results may look different independent of actual performance changes.
+
+defaults
+^^^^^^^^
 
 The following defaults can be entered in order to apply to the tests that
 follow.
@@ -110,14 +135,6 @@ Each test must specify a ``url``, and by entering a ``root`` default value
 it allows you to specify shorter URLs later. If you specify a default
 ``root: https://website.com``, you can later specify ``url: /resource``
 instead of needing to specify the full ``url: https://website.com/resource``.
-
-version
-+++++++
-
-When looking back on test results, it can be useful to know what version
-of the test you were actually looking at. By versioning your config file
-you can identify when things changed, perhaps helping you figure out why
-results may look different independent of actual performance changes.
 
 warmup
 ++++++
@@ -185,8 +202,11 @@ This is an optional dictionary of JSON to send in the request body.
 Output
 ******
 
-``pine`` writes its output in JSON format with two top-level keys: ``results``
-and ``id``. The ``id`` is whatever you specified in the ``-i`` argument to
+``pine`` writes its output in JSON format with three top-level keys:
+``results``, ``name``, and ``id``. The ``name`` is gathered from the
+``details`` section of your configuration file, or lacking that setting,
+it is derived from the argument passed in ``-c`` for the configuration
+file name. The ``id`` is what was specified in the ``-i`` argument to
 ``pine`` (or the default timestamp) and identifies this particular run
 of tests. ``results`` contains a list of dictionaries with details
 on each individual test, as follows.
@@ -195,11 +215,13 @@ on each individual test, as follows.
 
     {"results": [
         {"timeouts": 0, "failures": [], "name": "get_all_things",
-         "description": "Get all of the things", "version": "1.0",
+         "description": "Get all of the things",
          "mean": 1.668359371049998,
          "median": 1.580882219500005,
          "stdev": 0.0969358463985873},
      ],
+     "name": "some_benchmark_tests",
+     "version": "1.0",
      "id": "7155eb"}
 
 .. note:: ``pine`` does not determine success or failure of any test,
@@ -225,17 +247,12 @@ not a ``200 OK``.
 name
 ^^^^
 
-This is the name of the test.
+This is the name of the individual test.
 
 description
 ^^^^^^^^^^^
 
 This is the description of the test.
-
-version
-^^^^^^^
-
-This is the version of the test.
 
 mean
 ^^^^

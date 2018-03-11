@@ -26,17 +26,27 @@ class Context:
 
 
 @dataclass
-class Test:
+class Details:
     name: str
-    description: str
-    version: str
-    url: str
+    version: str = field(default="")
+
+
+@dataclass
+class Defaults:
+    root: str = field(default="")
+    warmup: int = field(default=0)
+    iterations: int = field(default=5)
+
+
+@dataclass
+class Test(Defaults):
+    name: str = field(default="")
+    description: str = field(default="")
+    url: str = field(default="")
     status: int = field(default=200)
     method: str = field(default="get")
     headers: dict = field(default=None)
     json: dict = field(default=None)
-    warmup: int = field(default=0)
-    iterations: int = field(default=3)
     timeout: int = field(default=5*60) # This is the aiohttp default anyway.
 
 
@@ -136,32 +146,56 @@ def get_args():
     return parser.parse_args()
 
 
-def get_tests(path, test_names):
+def make_test_name(path):
+    base = os.path.basename(path)
+    parts = base.split(os.path.extsep)
+    return parts[0]
+
+
+def process_details(config, path):
+    try:
+        details = config.pop("details")
+    except KeyError:
+        return Details(name=make_test_name(path))
+
+    if "name" not in details:
+        details["name"] = make_test_name(path)
+
+    return Details(**details)
+
+
+def process_defaults(config):
+    try:
+        defaults = config.pop("defaults")
+    except KeyError:
+        return Defaults()
+
+    return Defaults(**defaults)
+
+
+def read_config(path, test_names):
     with open(path, "r") as config_file:
         config = yaml.load(config_file.read())
 
-    try:
-        # Right now root is the only default, applied to test urls.
-        default = config.pop("default")
-        if "root" in default:
-            root = default.pop("root")
-    except KeyError:
-        default = {}
-        root = None
+    details = process_details(config, path)
+    defaults = process_defaults(config)
 
+    return details, get_tests(defaults, config, test_names)
+
+
+def get_tests(defaults, config, test_names):
     check_test_name = True if test_names else False
 
-    tests = []
     for test_name, values in config.items():
         if check_test_name and test_name not in test_names:
             continue
 
         # If there's a configured root url, join it up, otherwise
         # we'll assume the url is fully formed.
-        if root is not None:
-            values["url"] = urljoin(root, values["url"])
+        if defaults.root:
+            values["url"] = urljoin(defaults.root, values["url"])
 
-        test = dict(default)
+        test = dict(defaults.__dict__)
         test["name"] = test_name
 
         # Fill in templated header values from environment variables
@@ -184,25 +218,28 @@ def run_tests(loop, tests):
         result = loop.run_until_complete(run_one_test(loop, test))
         result.name = test.name
         result.description = test.description
-        result.version = test.version
         yield result
 
 
-def write_output(results, output_path, run_id):
-    report = {"results": [], "id": run_id}
+def write_output(details, results, cli_args):
+    report = {"results": [],
+              "name": details.name,
+              "version": details.version,
+              "id": cli_args.run_id}
     for result in results:
         report["results"].append(result.__dict__)
 
     output = json.dumps(report)
 
-    if output_path is None:
+    if cli_args.output_path is None:
         sys.stdout.write(output)
     else:
         # If we're given a directory, use the run_id to create the name.
-        if os.path.isdir(output_path):
-            output_path = os.path.join(output_path, run_id + ".json")
+        if os.path.isdir(cli_args.output_path):
+            cli_args.output_path = os.path.join(
+                cli_args.output_path, cli_args.run_id + ".json")
 
-        with open(output_path, "w") as out:
+        with open(cli_args.output_path, "w") as out:
             out.write(output)
 
 
@@ -211,9 +248,9 @@ def main():
 
     loop = asyncio.get_event_loop()
 
-    tests = get_tests(args.config_path, args.test_names)
+    details, tests = read_config(args.config_path, args.test_names)
     results = run_tests(loop, tests)
-    write_output(results, args.output_path, args.run_id)
+    write_output(details, results, args)
 
     loop.close()
 

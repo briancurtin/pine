@@ -1,6 +1,9 @@
-default:
-    root: "https://app.com/api"
+details:
+    name: "my tests"
     version: "1.0"
+
+defaults:
+    root: "https://app.com/api"
     warmup: 1
     iterations: 20
 
