@@ -33,7 +33,9 @@ if __name__ == "__main__":
         long_description=open(
             os.path.join(os.path.abspath(os.path.dirname(__file__)),
                          "README.rst")).read(),
-        scripts=["source/pine"],
+        scripts=["bin/pine"],
+        package_dir={"": "source"},
+        py_modules=["_pine"],
         zip_safe=False,
         classifiers=CLASSIFIERS,
         install_requires=[
