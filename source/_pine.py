@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 from dataclasses import dataclass, field
 from datetime import datetime
 from urllib.parse import urljoin
@@ -256,7 +254,3 @@ def main():
     loop.close()
 
     return 0
-
-
-if __name__ == "__main__":
-    sys.exit(main())
