@@ -1,3 +1,11 @@
+.. image:: https://readthedocs.org/projects/pine/badge/?version=latest
+   :target: http://pine.readthedocs.io/en/latest/?badge=latest
+   :alt: Documentation Status
+
+.. image:: https://travis-ci.org/briancurtin/pine.svg?branch=master
+   :target: https://travis-ci.org/briancurtin/pine
+   :alt: Test Status
+
 pine
 ====
 
