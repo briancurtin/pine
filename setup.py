@@ -25,7 +25,7 @@ if __name__ == "__main__":
         description="A benchmark utility to make requests to a REST API.",
         license="Apache 2",
         url="http://pine.readthedocs.io/en/latest/",
-        version="0.7.dev1",
+        version="0.7",
         author=NAME,
         author_email=EMAIL,
         maintainer=NAME,
