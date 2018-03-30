@@ -26,12 +26,14 @@ Documentation is available at http://pine.readthedocs.io/en/latest/
 Installation
 ============
 
-Under normal circumstances you would just do ``pip install pine``.
+On Python 3.6, ``pip install pine`` will do it.
 
-However, until PyYAML supports Python 3.7 in a released version, one
-extra step is required so we can install PyYAML from GitHub::
+On Python 3.7, there is an additional step required before running the
+same command. Until PyYAML supports Python 3.7 in a released version,
+you will need to install PyYAML from GitHub::
 
     pip install git+https://github.com/yaml/pyyaml.git
+    pip install pine
 
 https://github.com/briancurtin/pine/issues/1 and
 https://github.com/yaml/pyyaml/issues/126 are tracking this issue.
@@ -76,11 +78,6 @@ in ``-o``. It looks like the following::
      "name": "Testing the things",
      "version": "1.0",
      "id": "7155eb"}
-
-Requirements
-============
-
-Pine uses aiohttp on Python 3.7.
 
 Thanks
 ======
