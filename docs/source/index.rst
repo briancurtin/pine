@@ -6,12 +6,16 @@ A benchmark utility to make requests to a REST API.
 Installation
 ************
 
+On Python 3.6, ``pip install pine`` will do it.
+
 Under normal circumstances you would just do ``pip install pine``.
 
-However, until PyYAML supports Python 3.7 in a released version, one
-extra step is required so we can install PyYAML from GitHub::
+On Python 3.7, there is an additional step required before running the
+same command. Until PyYAML supports Python 3.7 in a released version,
+you will need to install PyYAML from GitHub::
 
     pip install git+https://github.com/yaml/pyyaml.git
+    pip install pine
 
 This will install the ``pine`` script for you to use. If you're installing
 this inside a virtualenv, it'll be in the ``/bin`` folder of that virtualenv.
