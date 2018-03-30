@@ -17,13 +17,14 @@ CLASSIFIERS = [
     "Topic :: Software Development :: Libraries :: Python Modules",
 ]
 
+
 if __name__ == "__main__":
     setup(
         name="pine",
         description="A benchmark utility to make requests to a REST API.",
         license="Apache 2",
         url="http://pine.readthedocs.io/en/latest/",
-        version="0.7.dev0",
+        version="0.7.dev1",
         author=NAME,
         author_email=EMAIL,
         maintainer=NAME,
@@ -38,10 +39,12 @@ if __name__ == "__main__":
         zip_safe=False,
         classifiers=CLASSIFIERS,
         install_requires=[
-            "aiohttp>=3.0",
-            "certifi>=2018.1.18",
-            # Until PyYAML comes out with 3.13 it needs to be installed
-            # separately:
+            "aiohttp >= 3.0",
+            "certifi >= 2018.1.18",
+            "dataclasses >= 0.5; python_version < '3.7'",
+            "pyyaml >= 3.12; python_version == '3.6'",
+            # For Python 3.7, until PyYAML comes out with 3.13 it needs
+            # to be installed manually:
             # pip install git+https://github.com/yaml/pyyaml.git
-            ],
+        ],
     )
