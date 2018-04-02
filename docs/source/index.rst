@@ -218,7 +218,8 @@ on each individual test, as follows.
 ::
 
     {"results": [
-        {"timeouts": 0, "failures": [], "name": "get_all_things",
+        {"times": [1.580882219500005, 1.8884545513215, 1.52546876846],
+         "timeouts": 0, "failures": [], "name": "get_all_things",
          "description": "Get all of the things",
          "mean": 1.668359371049998,
          "median": 1.580882219500005,
@@ -236,6 +237,11 @@ on each individual test, as follows.
            For example, if 10/20 responses were ``500 INTERNAL SERVER ERROR``,
            you would still receive statistics about the 10 responses that
            succeeded. How you use that information is up to you.
+
+times
+^^^^^
+
+This is a list of the response times.
 
 timeouts
 ^^^^^^^^
