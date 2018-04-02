@@ -101,16 +101,16 @@ async def run_one_test(loop, test):
             except asyncio.TimeoutError:
                 timeouts += 1
 
-    result = Result(times, timeouts, failures)
-    num_times = len(times)
+    runs = times[slice(test.warmup, len(times))]
+    num_runs = len(runs)
+    result = Result(runs, timeouts, failures)
 
     # Need at least two runs to calculate any of this.
-    if num_times >= 2:
-        runs = times[slice(test.warmup, num_times)]
+    if num_runs >= 2:
         result.mean = statistics.mean(runs)
         result.median = statistics.median(runs)
         result.stdev = statistics.stdev(runs)
-    elif num_times == 1:
+    elif num_runs == 1:
         # If we only had one succeed, just use it directly.
         result.mean = times[0]
         result.median = times[0]
