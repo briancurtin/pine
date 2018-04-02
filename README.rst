@@ -64,12 +64,14 @@ Pine writes its results in JSON, either to stdout or the path you specified
 in ``-o``. It looks like the following::
 
     {"results": [
-        {"timeouts": 0, "failures": [], "name": "get_all_things",
+        {"times": [1.580882219500005, 1.8884545513215, 1.52546876846],
+         "timeouts": 0, "failures": [], "name": "get_all_things",
          "description": "Get all of the things",
          "mean": 1.668359371049998,
          "median": 1.580882219500005,
          "stdev": 0.0969358463985873},
-        {"timeouts": 0, "failures": [], "name": "get_one_thing",
+        {"times": [0.4894684654656654, 0.508042131499991, 1.054654684684],
+         "timeouts": 0, "failures": [], "name": "get_one_thing",
          "description": "Get one thing",
          "mean": 0.856881387399993,
          "median": 0.508042131499991,

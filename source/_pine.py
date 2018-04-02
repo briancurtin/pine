@@ -50,6 +50,7 @@ class Test(Defaults):
 
 @dataclass
 class Result:
+    times: list
     timeouts: int
     failures: list
     name: str = field(default="")
@@ -100,7 +101,7 @@ async def run_one_test(loop, test):
             except asyncio.TimeoutError:
                 timeouts += 1
 
-    result = Result(timeouts, failures)
+    result = Result(times, timeouts, failures)
     num_times = len(times)
 
     # Need at least two runs to calculate any of this.
