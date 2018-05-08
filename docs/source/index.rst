@@ -140,6 +140,11 @@ it allows you to specify shorter URLs later. If you specify a default
 ``root: https://website.com``, you can later specify ``url: /resource``
 instead of needing to specify the full ``url: https://website.com/resource``.
 
+Both ``root`` and ``url`` support templated values which will be
+formatted using environment variables. For example, if you would like
+to use the ``DEPLOYMENT`` environment variable to fill your ``root``,
+``root: https://{DEPLOYMENT}.website.com/api`` will allow you to do this.
+
 warmup
 ++++++
 
@@ -178,6 +183,11 @@ This is the URL the request will be made to. If you do not have a ``root``
 specified in the ``default`` section, this must be a fully formed URL. If
 you do have a ``root`` specified, this can be a fragment of the URL that will
 be joined with that ``root`` as the above example does.
+
+As with ``root``, ``url`` supports templated values which will be formatted
+using environment variables. For example, if you would like
+to use the ``VERSION`` environment variable to fill your ``url``,
+``url: /api/{VERSION}/status`` will allow you to do this.
 
 method
 ++++++

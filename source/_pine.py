@@ -194,9 +194,10 @@ def get_tests(defaults, config, test_names):
             continue
 
         # If there's a configured root url, join it up, otherwise
-        # we'll assume the url is fully formed.
+        # we'll assume the url is fully formed. Format it as well.
         if defaults.root:
-            values["url"] = urljoin(defaults.root, values["url"])
+            value = urljoin(defaults.root, values["url"])
+            values["url"] = value.format(**os.environ)
 
         test = dict(defaults.__dict__)
         test["name"] = test_name
