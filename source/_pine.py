@@ -190,6 +190,8 @@ def get_tests(defaults, config, test_names):
     check_test_name = True if test_names else False
 
     for test_name, values in config.items():
+        # If we're given a set of test names on the command line,
+        # check each individual one in the config to see if it's included.
         if check_test_name and test_name not in test_names:
             continue
 
